@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Edit Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .admin-section {
+            margin-top: 20px;
+        }
+        .edit-area {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Website Content</h1>
+    <div id="content">
+        <p>This is the website content that can be edited by an admin.</p>
+    </div>
+
+    <div class="admin-section">
+        <h2>Admin Area</h2>
+        <label for="username">Username: </label>
+        <input type="text" id="username" placeholder="Enter admin username">
+        <br><br>
+
+        <label for="password">Password: </label>
+        <input type="password" id="password" placeholder="Enter admin password">
+        <br><br>
+
+        <button onclick="checkAdmin()">Login as Admin</button>
+    </div>
+
+    <div class="edit-area" id="edit-area" style="display:none;">
+        <h3>Edit Website Content</h3>
+        <textarea id="editContent" rows="4" cols="50"></textarea>
+        <br>
+        <button onclick="editData()">Save Changes</button>
+    </div>
+
+    <script>
+        // Simulating an Admin class with username and password verification
+        class Admin {
+            constructor(username, password) {
+                this.username = username;
+                this.password = password;
+            }
+
+            // Method to simulate login check (hardcoded credentials)
+            login(username, password) {
+                if (username === this.username && password === this.password) {
+                    return true;
+                }
+                return false;
+            }
+
+            // Method to edit website content
+            editData(newContent) {
+                document.getElementById('content').innerHTML = `<p>${newContent}</p>`;
+            }
+        }
+
+        // Simulating an admin with predefined credentials
+        const admin = new Admin('admin_john', 'admin123');
+
+        // Function to handle admin login and show the edit area
+        function checkAdmin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (admin.login(username, password)) {
+                document.getElementById('edit-area').style.display = 'block';
+                alert('Login successful. You can now edit the content.');
+            } else {
+                alert('Invalid username or password.');
+            }
+        }
+
+        // Function to edit the website content
+        function editData() {
+            const newContent = document.getElementById('editContent').value;
+            if (newContent.trim() !== '') {
+                admin.editData(newContent);
+                alert('Content updated successfully!');
+            } else {
+                alert('Please enter some content to save.');
+            }
+        }
+    </script>
+</body>
+</html>
